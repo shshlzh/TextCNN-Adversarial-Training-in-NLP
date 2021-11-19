@@ -1,0 +1,7 @@
+.idea
+*__pycache__/
+THUCNews/log/
+THUCNews/saved_dict
+.DS_Store
+sgns.sogou.char.bz2
+*.pyc

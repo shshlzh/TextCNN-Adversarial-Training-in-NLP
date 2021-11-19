@@ -6,9 +6,11 @@ from train_eval import train, init_network
 from importlib import import_module
 import argparse
 
+from utils import build_dataset, build_iterator, get_time_dif
+
 parser = argparse.ArgumentParser(description='Chinese Text Classification')
-parser.add_argument('--model', type=str, required=True, help='choose a model: TextCNN, TextRNN, FastText, TextRCNN, TextRNN_Att, DPCNN, Transformer')
-parser.add_argument('--embedding', default='pre_trained', type=str, help='random or pre_trained')
+parser.add_argument('--at_type', type=str, default="Free", help='choose a AT type: Base, FGSM, FGM, PGD, Free, default is Base')
+parser.add_argument('--embedding', default='random', type=str, help='random or pre_trained, default is random')
 parser.add_argument('--word', default=False, type=bool, help='True for word, False for char')
 args = parser.parse_args()
 
@@ -20,15 +22,14 @@ if __name__ == '__main__':
     embedding = 'embedding_SougouNews.npz'
     if args.embedding == 'random':
         embedding = 'random'
-    model_name = args.model  # 'TextRCNN'  # TextCNN, TextRNN, FastText, TextRCNN, TextRNN_Att, DPCNN, Transformer
-    if model_name == 'FastText':
-        from utils_fasttext import build_dataset, build_iterator, get_time_dif
-        embedding = 'random'
-    else:
-        from utils import build_dataset, build_iterator, get_time_dif
-
+    model_name = "TextCNN"  # Fix baseline is 'TextRCNN'
     x = import_module('models.' + model_name)
-    config = x.Config(dataset, embedding)
+
+    at_type = args.at_type
+    y = import_module("models." + at_type + "Model")
+
+
+    config = x.Config(dataset, embedding, at_type)
     np.random.seed(1)
     torch.manual_seed(1)
     torch.cuda.manual_seed_all(1)
@@ -40,13 +41,15 @@ if __name__ == '__main__':
     train_iter = build_iterator(train_data, config)
     dev_iter = build_iterator(dev_data, config)
     test_iter = build_iterator(test_data, config)
-    time_dif = get_time_dif(start_time)
-    print("Time usage:", time_dif)
 
     # train
     config.n_vocab = len(vocab)
     model = x.Model(config).to(config.device)
-    if model_name != 'Transformer':
-        init_network(model)
+    atModel = y.ATModel(model)
+
+    init_network(model)
     print(model.parameters)
-    train(config, model, train_iter, dev_iter, test_iter)
+    train(config, model, train_iter, dev_iter, test_iter, atModel)
+
+    time_dif = get_time_dif(start_time)
+    print("All time usage:", time_dif)

@@ -8,7 +8,6 @@ import time
 from utils import get_time_dif
 from tensorboardX import SummaryWriter
 
-
 # 权重初始化，默认xavier
 def init_network(model, method='xavier', exclude='embedding', seed=123):
     for name, w in model.named_parameters():
@@ -26,7 +25,7 @@ def init_network(model, method='xavier', exclude='embedding', seed=123):
                 pass
 
 
-def train(config, model, train_iter, dev_iter, test_iter):
+def train(config, model, train_iter, dev_iter, test_iter, atModel):
     start_time = time.time()
     model.train()
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
@@ -42,11 +41,7 @@ def train(config, model, train_iter, dev_iter, test_iter):
         print('Epoch [{}/{}]'.format(epoch + 1, config.num_epochs))
         # scheduler.step() # 学习率衰减
         for i, (trains, labels) in enumerate(train_iter):
-            outputs = model(trains)
-            model.zero_grad()
-            loss = F.cross_entropy(outputs, labels)
-            loss.backward()
-            optimizer.step()
+            outputs, loss = atModel.train(trains, labels, optimizer)
             if total_batch % 100 == 0:
                 # 每多少轮输出在训练集和验证集上的效果
                 true = labels.data.cpu()
@@ -82,9 +77,9 @@ def train(config, model, train_iter, dev_iter, test_iter):
 
 def test(config, model, test_iter):
     # test
+    start_time = time.time()
     model.load_state_dict(torch.load(config.save_path))
     model.eval()
-    start_time = time.time()
     test_acc, test_loss, test_report, test_confusion = evaluate(config, model, test_iter, test=True)
     msg = 'Test Loss: {0:>5.2},  Test Acc: {1:>6.2%}'
     print(msg.format(test_loss, test_acc))
@@ -93,7 +88,7 @@ def test(config, model, test_iter):
     print("Confusion Matrix...")
     print(test_confusion)
     time_dif = get_time_dif(start_time)
-    print("Time usage:", time_dif)
+    print("Test time usage:", time_dif)
 
 
 def evaluate(config, model, data_iter, test=False):

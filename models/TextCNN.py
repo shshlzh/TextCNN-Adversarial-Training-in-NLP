@@ -8,16 +8,16 @@ import numpy as np
 class Config(object):
 
     """配置参数"""
-    def __init__(self, dataset, embedding):
-        self.model_name = 'TextCNN'
+    def __init__(self, dataset, embedding, at_type):
+        self.at_type = at_type
         self.train_path = dataset + '/data/train.txt'                                # 训练集
         self.dev_path = dataset + '/data/dev.txt'                                    # 验证集
         self.test_path = dataset + '/data/test.txt'                                  # 测试集
         self.class_list = [x.strip() for x in open(
             dataset + '/data/class.txt', encoding='utf-8').readlines()]              # 类别名单
         self.vocab_path = dataset + '/data/vocab.pkl'                                # 词表
-        self.save_path = dataset + '/saved_dict/' + self.model_name + '.ckpt'        # 模型训练结果
-        self.log_path = dataset + '/log/' + self.model_name
+        self.save_path = dataset + '/saved_dict/' + self.at_type + '.ckpt'           # 模型训练结果
+        self.log_path = dataset + '/log/' + self.at_type
         self.embedding_pretrained = torch.tensor(
             np.load(dataset + '/data/' + embedding)["embeddings"].astype('float32'))\
             if embedding != 'random' else None                                       # 预训练词向量
