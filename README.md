@@ -10,7 +10,7 @@ TextCNN的具体模型结构参考作者的博客：[中文文本分类pytorch�
 
 ## 对抗训练简介
 
-对抗训练是一种引入噪声的训练方式，可以对参数进行正则化，提升模型的鲁棒性和泛化能力。更详细的介绍可以参考文档：[link](documents/对抗训练的NLP中的应用实验报告.pdf)
+对抗训练是一种引入噪声的训练方式，可以对参数进行正则化，提升模型的鲁棒性和泛化能力。更详细的介绍可以参考文档：[link](documents/对抗训练在NLP中的应用实验报告.pdf)
 
 ## 数据集
 数据集是[TextCNN作者](https://github.com/649453932/Chinese-Text-Classification-Pytorch) 从[THUCNews](http://thuctc.thunlp.org/) 中抽取了20万条新闻标题，已上传至github，文本长度在20到30之间。一共10个类别，每类2万条。
