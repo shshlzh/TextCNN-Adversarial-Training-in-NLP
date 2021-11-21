@@ -16,8 +16,8 @@ class ATModel(BaseModel.ATModel):
         self.epsilon = 0.1
         self.K = 3          # delta迭代的次数
         self.alpha = 0.1    # delta每次迭代的scale
-        self.use_sign_grad = True
-        self.use_project = False
+        self.use_sign_grad = False
+        self.use_project = True
 
     def train(self, trains, labels, optimizer):
         """
