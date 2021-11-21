@@ -1,10 +1,10 @@
 # 对抗训练在NLP的应用
 
-本实验以文本分类中最基础的TextCNN<sup>[\[1\]](#TextCNN)</sup>模型，实验了对抗训练在NLP中的效果。  
+本实验以文本分类中最基础的TextCNN<sup>[1](#TextCNN)</sup>模型，实验了对抗训练在NLP中的效果。  
 TextCNN的代码来源于：[Chinese-Text-Classification-Pytorch](https://github.com/649453932/Chinese-Text-Classification-Pytorch) ，
 TextCNN的具体模型结构参考作者的博客：[中文文本分类pytorch实现](https://zhuanlan.zhihu.com/p/73176084) 。
-对抗训练的代码参考知乎：[NLP中的对抗训练 + PyTorch实现](https://zhuanlan.zhihu.com/p/91269728) ，同时参考[fast_adversarial](https://github.com/locuslab/fast_adversarial) <sup>[\[2\]](#FAST_ADV)</sup> 的实现思路。 
-本实验简单的实现了FGSM<sup>[\[3\]](#FGSM)</sup>、FGM<sup>[\[4\]](#FGM)</sup>、PGD<sup>[\[5\]](#PGD)</sup>、Free<sup>[\[6\]](#PGD)</sup>，可以通过参数控制。
+对抗训练的代码参考知乎：[NLP中的对抗训练 + PyTorch实现](https://zhuanlan.zhihu.com/p/91269728) ，同时参考[fast_adversarial](https://github.com/locuslab/fast_adversarial) <sup>[2](#FAST_ADV)</sup> 的实现思路。 
+本实验简单的实现了FGSM<sup>[3](#FGSM)</sup>、FGM<sup>[4](#FGM)</sup>、PGD<sup>[5](#PGD)</sup>、Free<sup>[6](#PGD)</sup>，可以通过参数控制。
 
 **本实验仅供个人学习理解对抗训练的基本原理，如果侵权还请联系删除。**
 
@@ -20,7 +20,7 @@ TextCNN的具体模型结构参考作者的博客：[中文文本分类pytorch�
 数据集划分：
 
 |数据集|数据量|
-|:-------- :|:-------- :|
+|:--------:|:--------:|
 |训练集|18万|
 |验证集|1万|
 |测试集|1万|
