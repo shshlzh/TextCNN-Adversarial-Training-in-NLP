@@ -1,6 +1,6 @@
 # 对抗训练在NLP的应用
 
-本实验以文本分类中最基础的TextCNN<sup>[1](#TextCNN)</sup>模型，实验了对抗训练在NLP中的效果。  
+本实验以文本分类中常用的TextCNN<sup>[1](#TextCNN)</sup>模型为基础，实验了对抗训练在NLP中的效果。  
 TextCNN的代码来源于：[Chinese-Text-Classification-Pytorch](https://github.com/649453932/Chinese-Text-Classification-Pytorch) ，
 TextCNN的具体模型结构参考作者的博客：[中文文本分类pytorch实现](https://zhuanlan.zhihu.com/p/73176084) 。
 对抗训练的代码参考知乎：[NLP中的对抗训练 + PyTorch实现](https://zhuanlan.zhihu.com/p/91269728) ，同时参考[fast_adversarial](https://github.com/locuslab/fast_adversarial) <sup>[2](#FAST_ADV)</sup> 的实现思路。 
@@ -52,6 +52,7 @@ tensorboardX==1.0
 **说明：**     
 - 为了比较效果，word embedding不使用预训练的词向量，都使用随机初始化 
 - 其他参数常见[models/TextCNN.py](models/TextCNN.py)
+- 更详细的指标数据参见训练日志[documents](documents)
 
 
 
