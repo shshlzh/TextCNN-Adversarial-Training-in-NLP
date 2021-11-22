@@ -77,8 +77,11 @@ python run.py --at_type=FGM
 # PGD
 python run.py --at_type=PGD
 
-# PGD
+# Free
 python run.py --at_type=Free
+
+# FreeLB，新增，还没有跑出来评测的数据
+python run.py --at_type=FreeLB
 
 ```
 

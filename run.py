@@ -9,7 +9,7 @@ import argparse
 from utils import build_dataset, build_iterator, get_time_dif
 
 parser = argparse.ArgumentParser(description='Chinese Text Classification')
-parser.add_argument('--at_type', type=str, default="Base", help='choose a AT type: Base, FGSM, FGM, PGD, Free, default is Base')
+parser.add_argument('--at_type', type=str, default="Base", help='choose a AT type: Base, FGSM, FGM, PGD, Free, FreeLB, default is Base')
 parser.add_argument('--embedding', default='random', type=str, help='random or pre_trained, default is random')
 parser.add_argument('--word', default=False, type=bool, help='True for word, False for char')
 args = parser.parse_args()
